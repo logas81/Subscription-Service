@@ -19,7 +19,7 @@ paths:
           - 
             name: "EmailServiceRequest"
             in: "body"
-            description: "Subscription data"
+            description: "Subscriptor data"
             required: true
             schema: 
               $ref: "#/definitions/EmailServiceRequest"

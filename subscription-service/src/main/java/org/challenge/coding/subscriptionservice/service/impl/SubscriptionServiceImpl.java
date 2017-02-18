@@ -1,10 +1,11 @@
-package org.challenge.coding.subscriptionservice.service;
+package org.challenge.coding.subscriptionservice.service.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.challenge.coding.subscriptionservice.data.Subscription;
 import org.challenge.coding.subscriptionservice.data.SubscriptionResponse;
+import org.challenge.coding.subscriptionservice.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
  *
  */
 @Service
-public class SubscriptionServiceImp implements SubscriptionService {
+public class SubscriptionServiceImpl implements SubscriptionService {
 	
 	private static final String SELECT_ID_SQL = "SELECT id FROM subscriptions WHERE email = ?";
 	
