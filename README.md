@@ -28,14 +28,19 @@ $ mvn spring-boot:run
 Endpoint should be available at http://localhost:8082/sendEvent
 
 **Dealing with Oauth2 Security**
+
 We need an auth token in order to invoke subscription service, so to get it:
+
 1)  We have to add an authorization header with client credentials to request headers.
-        Username: my-trusted-client
-        Password:  secret
+
+	Username: my-trusted-client
+	Password:  secret
 
 2)  We have to invoke /oauth/token context with grant_type = password and adding resource owner credentials in the request params.
+
 	Username: admin1
 	Password: abc1234
+	
 http://localhost:8080/oauth/token?grant_type=password&username=admin1&password=abc1234
 
 ## Service Interfaces
