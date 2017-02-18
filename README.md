@@ -11,21 +11,32 @@ To run the project in local, you must do the following in three different termin
 $ cd subscription-service
 $ mvn spring-boot:run
 ```
-Endpoint should be available at http://localhost:8080
+Endpoint should be available at http://localhost:8080/createSubscription
 
 **Start up Email service**
 ```java
 $ cd email-service
 $ mvn spring-boot:run
 ```
-Endpoint should be available at http://localhost:8081
+Endpoint should be available at http://localhost:8081/sendConfirmationMail
 
 **Start up Event service**
 ```java
 $ cd event-service
 $ mvn spring-boot:run
 ```
-Endpoint should be available at http://localhost:8082
+Endpoint should be available at http://localhost:8082/sendEvent
+
+**Dealing with Oauth2 Security**
+We need an auth token in order to invoke subscription service, so to get it:
+1)  We have to add an authorization header with client credentials to request headers.
+        Username: my-trusted-client
+        Password:  secret
+
+2)  We have to invoke /oauth/token context with grant_type = password and adding resource owner credentials in the request params.
+	Username: admin1
+	Password: abc1234
+http://localhost:8080/oauth/token?grant_type=password&username=admin1&password=abc1234
 
 ## Service Interfaces
 The following files contain service interfaces defined in Yaml by means of Swagger 2.0 editor (http://editor.swagger.io/#/)
@@ -62,6 +73,6 @@ Used to test services once launched by means of Maven.
 Online markdown editor used to create README.md file
 
 ## TODO
-* Add jUnit tests to subscription-service (email and event service donÂ´t need tests as they are mocked to always return "OK").
-* Improve subscription-service by adding spring-cloud capabilities.
+* Add jUnit tests to subscription-service (email and event service don´t need tests as they are mocked to always return "OK").
+* Improve service scalability by adding spring-cloud capabilities.
 * Add support to run the services in Docker.
