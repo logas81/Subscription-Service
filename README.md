@@ -11,6 +11,12 @@ To run the project in local, you must do the following in three different termin
 $ cd subscription-service
 $ mvn spring-boot:run
 ```
+or
+```java
+$ cd subscription-service
+$ mvn package
+$ java -jar target\subscription-service-0.0.1-SNAPSHOT.jar
+```
 Endpoint should be available at http://localhost:8080/createSubscription
 
 **Start up Email service**
@@ -18,12 +24,24 @@ Endpoint should be available at http://localhost:8080/createSubscription
 $ cd email-service
 $ mvn spring-boot:run
 ```
+or
+```java
+$ cd email-service
+$ mvn package
+$ java -jar target\email-service-0.0.1-SNAPSHOT.jar
+```
 Endpoint should be available at http://localhost:8081/sendConfirmationMail
 
 **Start up Event service**
 ```java
 $ cd event-service
 $ mvn spring-boot:run
+```
+or
+```java
+$ cd event-service
+$ mvn package
+$ java -jar target\event-service-0.0.1-SNAPSHOT.jar
 ```
 Endpoint should be available at http://localhost:8082/sendEvent
 
