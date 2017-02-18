@@ -1,17 +1,41 @@
 package org.challenge.coding.subscriptionservice.data;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 
 /**
  * Subscription input data type definition
  */
-public class Subscription { 
+@Entity
+public class Subscription implements Serializable { 
 	
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue
+	private Long id;	
+	
+	@Column(nullable = false)
 	private String email;
+	
+	@Column
 	private String firstName;
+	
+	@Column
 	private String gender;
+	
+	@Column(nullable = false)
 	private Date dateOfBirth;
+	
+	@Column(nullable = false)
 	private Boolean consent;
+	
+	@Column(nullable = false)
 	private String newsletterId;
 	
 	/**
@@ -31,6 +55,11 @@ public class Subscription {
 		this.newsletterId = newsletterId;
 	}
 
+	
+	public Long getId() {
+		return id;
+	}
+	
 	public String getEmail() {
 		return email;
 	}

@@ -1,15 +1,12 @@
 package org.challenge.coding.subscriptionservice.service.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import org.challenge.coding.subscriptionservice.data.Subscription;
 import org.challenge.coding.subscriptionservice.data.SubscriptionResponse;
 import org.challenge.coding.subscriptionservice.service.SubscriptionService;
+import org.challenge.coding.subscriptionservice.service.SubscriptionRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
@@ -21,17 +18,12 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class SubscriptionServiceImpl implements SubscriptionService {
 	
-	private static final String SELECT_ID_SQL = "SELECT id FROM subscriptions WHERE email = ?";
-	
-	private static final String INSERT_SQL = "INSERT INTO subscriptions(email, firstName, gender, "
-			+ "dateOfBirth, consent, newsletterId) values(?,?,?,?,?,?)";
-	
 	private static final String EMAIL_SERVICE_URL = "http://localhost:8081/sendConfirmationMail";
 	
 	private static final String EVENT_SERVICE_URL = "http://localhost:8082/sendEvent";
 	
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private SubscriptionRepository subscriptionRepository;
 
 	
 	/**
@@ -49,34 +41,18 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     			|| subscription.getNewsletterId() == null) {
     		return new SubscriptionResponse("ERROR. Mandatory data not available.", "-1");
     	}
-		
-		String subId = "";
-		
-		RowMapper<String> idRowMapper = new RowMapper<String>() {
-            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return rs.getString("id");
-            }
-        };
-		
-		// Check if email already exists. Returns existing id if exists
-		try {
-			subId =	this.jdbcTemplate.queryForObject(
-				SELECT_ID_SQL, new Object[] { subscription.getEmail() }, idRowMapper);
-			return new SubscriptionResponse("OK. Email already subscribed.", subId);
-		} catch (org.springframework.dao.EmptyResultDataAccessException ex) {	
-		}
 
-		
-		// Insert new email
-		this.jdbcTemplate.update(
-				INSERT_SQL,
-                subscription.getEmail(), subscription.getFirstName(), subscription.getGender(), 
-                subscription.getDateOfBirth(), subscription.getConsent(), subscription.getNewsletterId()
-        );
-		
+		// Check if email already exists. Returns existing ID if exists
+        Subscription auxSub = subscriptionRepository.findByEmail(subscription.getEmail());
+        if (auxSub != null) {
+           return new SubscriptionResponse("OK. Email already subscribed.", auxSub.getId().toString());
+        }
+        
+		// Insert new email (create subscription)
+        auxSub = subscriptionRepository.save(subscription);
+
 		// Get new email's id
-		subId = this.jdbcTemplate.queryForObject(
-				SELECT_ID_SQL , new Object[] { subscription.getEmail() }, idRowMapper);
+        String subId = auxSub.getId().toString();
 		
 		// Invoke email service
 		invokeEmailService(subscription);
