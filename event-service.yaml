@@ -1,0 +1,63 @@
+# http://editor.swagger.io/#/
+# 
+swagger: '2.0'
+
+#  document metadata
+info:
+  version: "1.0.0"
+  title: Event Service
+
+paths:
+  # Path endpoint. 
+  /sendEvent:
+    post:
+      description: "Process event."
+      operationId: "sendEvent"
+      produces: 
+          - "application/json"
+      parameters: 
+          - 
+            name: "EventServiceRequest"
+            in: "body"
+            description: "User data"
+            required: true
+            schema: 
+              $ref: "#/definitions/EventServiceRequest"
+                    
+      # Expected response
+      responses:
+        # Response code
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/EventServiceResponse'
+definitions:   
+  EventServiceRequest:
+    type: object
+    required:  [email, dateOfBirth, consent, newsletterId]
+    properties:
+      email:
+        type: string
+        description: User's mail.
+      firstName:
+        type: string
+        description: User's first name.
+      gender:
+        type: string
+        description: User's gender.
+      dateOfBirth:
+        type: string
+        format: date
+        description: User's date of birth.
+      consent:
+        type: boolean
+        description: User's consent.
+      newsletterId:
+        type: string
+        description: Id of the newsletter.        
+  EventServiceResponse:
+    type: object
+    properties:
+      status:
+        type: string
+        description: Operation Status.                  

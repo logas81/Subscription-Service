@@ -1,0 +1,68 @@
+# http://editor.swagger.io/#/
+# 
+# SUBSCRIPTION SERVICE DEFINITION
+#
+swagger: '2.0'
+
+#  document metadata
+info:
+  version: "1.0.0"
+  title: Subscription Service
+
+paths:
+  # Path endpoint. 
+  /createSubscription:
+    post:
+      description: "Subscribes an email to the newsletter and returns the ID of the created subscription."
+      operationId: "createSubscription"
+      produces: 
+          - "application/json"
+      parameters: 
+          - 
+            name: "Subscription"
+            in: "body"
+            description: "Subscription to add to the newsletter"
+            required: true
+            schema: 
+              $ref: "#/definitions/Subscription"   
+      # Expected response
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/SubscriptionResponse'
+            
+#Data definition
+definitions:   
+  Subscription:
+    type: object
+    required:  [email, dateOfBirth, consent, newsletterId]
+    properties:
+      email:
+        type: string
+        description: Email to be subscribed (unique).
+      firstName:
+        type: string
+        description: Subscriptor's first name.
+      gender:
+        type: string
+        description: Subscriptor's gender.
+      dateOfBirth:
+        type: string
+        format: date
+        description: Subscriptor's date of birth.
+      consent:
+        type: boolean
+        description: Subscriptor's consent.
+      newsletterId:
+        type: string
+        description: Id of the newsletter.        
+  SubscriptionResponse:
+    type: object
+    properties:
+      id:
+        type: string
+        description: ID of the created subscription.
+      status:
+        type: string
+        description: Operation Status.                  

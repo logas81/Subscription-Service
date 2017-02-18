@@ -1,0 +1,63 @@
+# http://editor.swagger.io/#/
+# 
+swagger: '2.0'
+
+#  document metadata
+info:
+  version: "1.0.0"
+  title: Email Service
+
+paths:
+  # Path endpoint. 
+  /sendConfirmationMail:
+    post:
+      description: "Sends a confirmation mail to a subscribed user."
+      operationId: "sendConfirmationMail"
+      produces: 
+          - "application/json"
+      parameters: 
+          - 
+            name: "EmailServiceRequest"
+            in: "body"
+            description: "Subscription data"
+            required: true
+            schema: 
+              $ref: "#/definitions/EmailServiceRequest"
+                    
+      # Expected response
+      responses:
+        # Response code
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/EmailServiceResponse'
+definitions:   
+  EmailServiceRequest:
+    type: object
+    required:  [email, dateOfBirth, consent, newsletterId]
+    properties:
+      email:
+        type: string
+        description: Subscriptor's mail.
+      firstName:
+        type: string
+        description: Subscriptor's first name.
+      gender:
+        type: string
+        description: Subscriptor's gender.
+      dateOfBirth:
+        type: string
+        format: date
+        description: Subscriptor's date of birth.
+      consent:
+        type: boolean
+        description: Subscriptor's consent.
+      newsletterId:
+        type: string
+        description: Id of the newsletter.        
+  EmailServiceResponse:
+    type: object
+    properties:
+      status:
+        type: string
+        description: Operation Status.                  
