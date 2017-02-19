@@ -26,10 +26,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class SubscriptionServiceTest {
 	
     Subscription testSub1 = new Subscription("test1@test.com", "name", "male",
-    		new Date(), true, "news1");
-    
-    Subscription testSub2 = new Subscription("test2@test.com", "name", "male",
-    		new Date(), true, "news1"); 	
+    		new Date(), true, "news1");	
 	
     @InjectMocks
     private SubscriptionServiceImpl subscriptionService;
@@ -40,6 +37,8 @@ public class SubscriptionServiceTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        Mockito.when(subscriptionRepositoryMock.save(testSub1)).thenReturn(testSub1);
+    	Mockito.when(subscriptionRepositoryMock.findByEmail("test1@test.com")).thenReturn(testSub1);
     }
 	
     /**
@@ -49,9 +48,7 @@ public class SubscriptionServiceTest {
     @Test
     public void createSubscriptionSuccessfully() throws Exception {
     	testSub1.setId(new Long(1));
-    	testSub2.setId(new Long(2));
     	Mockito.when(subscriptionRepositoryMock.findByEmail("test1@test.com")).thenReturn(null);
-    	Mockito.when(subscriptionRepositoryMock.save(testSub1)).thenReturn(testSub1);
         SubscriptionResponse subscriptionResponse = subscriptionService.addSubscription(testSub1);
         assertNotNull(subscriptionResponse);
         assertEquals("OK", subscriptionResponse.getStatus());
@@ -64,25 +61,19 @@ public class SubscriptionServiceTest {
     @Test
     public void createSubscriptionSuccessfullyExistingSubscriptor() throws Exception {
     	testSub1.setId(new Long(1));
-    	testSub2.setId(new Long(2));
-    	Mockito.when(subscriptionRepositoryMock.findByEmail("test1@test.com")).thenReturn(testSub1);
-    	Mockito.when(subscriptionRepositoryMock.save(testSub1)).thenReturn(testSub1);
         SubscriptionResponse subscriptionResponse = subscriptionService.addSubscription(testSub1);
         assertNotNull(subscriptionResponse);
         assertEquals("OK. Email already subscribed.", subscriptionResponse.getStatus());
     }   
     
     /**
-     * Create new Subscription (email previously subscribed)
+     * Create new Subscription without one mandatory param.
      * @throws Exception
      */    
     @Test
     public void createSubscriptionWrongParameters() throws Exception {
     	testSub1.setId(new Long(1));
-    	testSub2.setId(new Long(2));
     	testSub1.setNewsletterId(null);
-    	Mockito.when(subscriptionRepositoryMock.findByEmail("test1@test.com")).thenReturn(testSub1);
-    	Mockito.when(subscriptionRepositoryMock.save(testSub1)).thenReturn(testSub1);
         SubscriptionResponse subscriptionResponse = subscriptionService.addSubscription(testSub1);
         assertNotNull(subscriptionResponse);
         assertEquals("ERROR. Mandatory data not available.", subscriptionResponse.getStatus());
