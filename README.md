@@ -1,4 +1,3 @@
-
 # Subscription-Service
 
 Usage
@@ -87,15 +86,14 @@ H2 is a relational database management system that can be embedded in Java appli
     
 ## Tools used during development
 * Swagger
-Used to define and document service interfaces.
+    Used to define and document service interfaces.
 * Eclipse
-Used as development environment (IDE)
+    Used as development environment (IDE)
 * Postman
-Used to test services once launched by means of Maven. 
+    Used to test services once launched by means of Maven. 
 * Dillinger.io (http://dillinger.io/)
-Online markdown editor used to create README.md file
+    Online markdown editor used to create README.md file
 
 ## TODO
-* Add jUnit tests to subscription-service (email and event service don´t need tests as they are mocked to always return "OK").
 * Improve service scalability by adding spring-cloud capabilities.
 * Add support to run the services in Docker.
