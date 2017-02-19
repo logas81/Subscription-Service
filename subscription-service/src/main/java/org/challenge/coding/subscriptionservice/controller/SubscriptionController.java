@@ -1,5 +1,7 @@
 package org.challenge.coding.subscriptionservice.controller;
 
+import javax.validation.Valid;
+
 import org.challenge.coding.subscriptionservice.model.entity.Subscription;
 import org.challenge.coding.subscriptionservice.model.entity.SubscriptionResponse;
 import org.challenge.coding.subscriptionservice.service.SubscriptionService;
@@ -10,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller class
+ */
 @RestController
 public class SubscriptionController {
 	
@@ -26,7 +31,7 @@ public class SubscriptionController {
 	 * @return the subscription response
      */
     @RequestMapping(value = "/createSubscription", method = {RequestMethod.POST})
-    public @ResponseBody SubscriptionResponse addSubscription(@RequestBody Subscription subData) {
+    public @ResponseBody SubscriptionResponse addSubscription(@Valid @RequestBody Subscription subData) {
     	
         return this.subscriptionService.addSubscription(subData);
     }
