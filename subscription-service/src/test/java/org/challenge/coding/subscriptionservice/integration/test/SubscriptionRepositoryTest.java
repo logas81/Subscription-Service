@@ -1,4 +1,4 @@
-package org.challenge.coding.subscriptionservice.service.test;
+package org.challenge.coding.subscriptionservice.integration.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
