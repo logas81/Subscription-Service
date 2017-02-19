@@ -60,6 +60,38 @@ We need an auth token in order to invoke subscription service, so to get it:
 	
 http://localhost:8080/oauth/token?grant_type=password&username=admin1&password=abc1234
 
+We will get an access token (39dbd82d-e221-4c08-983e-fe68d7380444 this time) that expires in 300 seconds as well as its refresh token.
+```json
+{
+  "access_token": "39dbd82d-e221-4c08-983e-fe68d7380444",
+  "token_type": "bearer",
+  "refresh_token": "70aab3aa-c6e0-49cc-a20d-fedbfad67e07",
+  "expires_in": 299,
+  "scope": "read write trust"
+}
+```
+
+Finally we access the service by providing the access token through access_token query param in the request and including a json object in the request body:
+http://localhost:8080/createSubscription?access_token=39dbd82d-e221-4c08-983e-fe68d7380444
+
+```json
+{
+	"email":"testuser2@foo.com", 
+	"firstName":"name2", 
+	"gender":"male", 
+	"dateOfBirth":"2016-03-12", 
+	"consent":"true", 
+	"newsletterId":"news13"
+}
+```
+Response:
+```json
+{
+  "status": "OK",
+  "id": "1"
+}
+```
+
 ## Service Interfaces
 The following files contain service interfaces defined in Yaml by means of Swagger 2.0 editor (http://editor.swagger.io/#/)
 * subscription-service.yaml
@@ -69,30 +101,28 @@ The following files contain service interfaces defined in Yaml by means of Swagg
 ## Framework / libraries
 This project has been developed using Spring Boot. Its capabilities fit properly for the requirements specified in the coding challenge since it makes easy to create stand-alone, production-grade Spring based Applications that you can "just run".
 * org.springframework.boot
-    * spring-boot-starter-parent
+    * spring-boot-starter-parent:
     Parent pom provides applications built with Maven with dependency and plugin management. 
-    * spring-boot-starter-data-rest
+    * spring-boot-starter-data-rest:
     It provides a flexible and configurable mechanism for writing simple services that can be exposed over HTTP.
-    * spring-boot-starter-security
+    * spring-boot-starter-security:
    It is a starter for using Spring Security
-    * spring-boot-maven-plugin
+    * spring-boot-maven-plugin:
     It provides Spring Boot with support in Maven. It has been used to package every service in an independent self running jar file.
-* org.springframework.security.oauth
-OAuth 2.0 is the industry-standard protocol for authorization. It has been used to secure subscription service. Email and event service don't need to be secured since they are in a secure network zone (not exposed to Internet).
+* org.springframework.security.oauth: 
+OAuth 2.0 is the industry-standard protocol for authorization. It has been used to secure subscription service. **Email and event service don't need to be secured since they are in a secure network zone (not exposed to Internet).**
     * spring-security-oauth2
-* com.h2database
+* com.h2database: 
 H2 is a relational database management system that can be embedded in Java applications. H2 has been used as an in-memory database for subscription service to store subscriptors data.
     * h2 
-    
+* JUnit with Mockito: 
+JUnit and Mockito have been used in order to test subscription service (unit testing).
+
 ## Tools used during development
-* Swagger
-    Used to define and document service interfaces.
-* Eclipse
-    Used as development environment (IDE)
-* Postman
-    Used to test services once launched by means of Maven. 
-* Dillinger.io (http://dillinger.io/)
-    Online markdown editor used to create README.md file
+* Swagger 2.0 editor - Used to define and document service interfaces.
+* Eclipse - Used as development environment (IDE)
+* Postman - Used to test services once launched by means of Maven. 
+* Dillinger.io (http://dillinger.io/) - Online markdown editor used to create README.md file
 
 ## TODO
 * Improve service scalability by adding spring-cloud capabilities.
