@@ -1,4 +1,4 @@
-package org.challenge.coding.subscriptionservice.data;
+package org.challenge.coding.subscriptionservice.model.entity;
 
 import java.io.Serializable;
 import java.util.Date;

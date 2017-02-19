@@ -1,6 +1,6 @@
-package org.challenge.coding.subscriptionservice.service;
+package org.challenge.coding.subscriptionservice.model.repository;
 
-import org.challenge.coding.subscriptionservice.data.Subscription;
+import org.challenge.coding.subscriptionservice.model.entity.Subscription;
 import org.springframework.data.repository.Repository;
 
 /**

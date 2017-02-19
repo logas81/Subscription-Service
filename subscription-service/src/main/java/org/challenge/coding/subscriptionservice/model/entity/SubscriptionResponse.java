@@ -1,4 +1,4 @@
-package org.challenge.coding.subscriptionservice.data;
+package org.challenge.coding.subscriptionservice.model.entity;
 
 /**
  * Subscription output data type definition

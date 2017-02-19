@@ -1,7 +1,7 @@
 package org.challenge.coding.subscriptionservice.controller;
 
-import org.challenge.coding.subscriptionservice.data.Subscription;
-import org.challenge.coding.subscriptionservice.data.SubscriptionResponse;
+import org.challenge.coding.subscriptionservice.model.entity.Subscription;
+import org.challenge.coding.subscriptionservice.model.entity.SubscriptionResponse;
 import org.challenge.coding.subscriptionservice.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

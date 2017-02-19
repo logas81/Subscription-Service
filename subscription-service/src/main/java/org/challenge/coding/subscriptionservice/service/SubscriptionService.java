@@ -1,7 +1,7 @@
 package org.challenge.coding.subscriptionservice.service;
 
-import org.challenge.coding.subscriptionservice.data.Subscription;
-import org.challenge.coding.subscriptionservice.data.SubscriptionResponse;
+import org.challenge.coding.subscriptionservice.model.entity.Subscription;
+import org.challenge.coding.subscriptionservice.model.entity.SubscriptionResponse;
 
 /**
  * Subscription service interface

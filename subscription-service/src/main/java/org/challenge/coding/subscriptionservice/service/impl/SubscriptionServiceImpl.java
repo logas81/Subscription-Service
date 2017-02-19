@@ -1,10 +1,9 @@
 package org.challenge.coding.subscriptionservice.service.impl;
 
-import org.challenge.coding.subscriptionservice.data.Subscription;
-import org.challenge.coding.subscriptionservice.data.SubscriptionResponse;
 import org.challenge.coding.subscriptionservice.service.SubscriptionService;
-import org.challenge.coding.subscriptionservice.service.SubscriptionRepository;
-
+import org.challenge.coding.subscriptionservice.model.entity.Subscription;
+import org.challenge.coding.subscriptionservice.model.entity.SubscriptionResponse;
+import org.challenge.coding.subscriptionservice.model.repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

@@ -5,8 +5,8 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.util.Date;
 
-import org.challenge.coding.subscriptionservice.data.Subscription;
-import org.challenge.coding.subscriptionservice.service.SubscriptionRepository;
+import org.challenge.coding.subscriptionservice.model.entity.Subscription;
+import org.challenge.coding.subscriptionservice.model.repository.SubscriptionRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
